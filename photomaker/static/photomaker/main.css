@@ -22,7 +22,8 @@ body {
   background-color: #f8f9fa;
 }
 
-.btn {
+.btn,
+.btn:focus {
   color: black;
   background-color: white;
   border-color: black !important;
@@ -33,8 +34,7 @@ body {
   transition: background-color 0.2s;
 }
 .btn:hover,
-.btn:active,
-.btn:focus {
+.btn:active {
   color: white;
   background-color: black !important;
 }

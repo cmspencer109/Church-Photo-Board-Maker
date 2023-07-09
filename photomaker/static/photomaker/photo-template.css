@@ -9,34 +9,23 @@
     box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
 
-#photo-template::before,
-#photo-template::after {
-    content: "";
+#photo-template.guides::before {
+    content: "Align with top of head";
+    font-size: 14px;
+    font-style: italic;
+    color: red;
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
     height: 0;
-    /* background-color: rgb(66, 100, 210); */
-    opacity: 0.5;
-}
-
-/* #photo-template::before {
-    top: 0;
     height: 25%;
-    border-bottom: 1px solid red;
-} */
-
-/* #photo-template::before {
-    top: 0;
-    height: 18.75%;
-    border-bottom: 1px dashed red;
+    padding-top: 13%;
+    padding-left: 3px;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.75);
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
 }
-
-#photo-template::after {
-    bottom: 0;
-    height: 6.25%;
-    border-top: 1px dashed red;
-} */
 
 #photo-template .safe-area {
     width: 100%;
@@ -86,4 +75,10 @@
 #photo-template .text-area .text-spacer {
     font-size: 10pt;
     line-height: 13pt;
+}
+
+#image {
+    display: block;
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
 }
