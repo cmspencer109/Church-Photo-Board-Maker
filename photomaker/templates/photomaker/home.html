@@ -15,20 +15,20 @@
 
       <div class="mb-3">
         <label for="familyNameInput" class="form-label">Family Name</label>
-        <input type="text" class="form-control" id="familyNameInput" placeholder="Luther">
+        <input type="text" class="form-control userInput" id="familyNameInput" placeholder="Luther">
       </div>
   
       <div class="mb-3">
         <label for="parentsInput" class="form-label">Parents</label>
-        <input type="text" class="form-control" id="parentsInput" placeholder="Martin & Katie">
+        <input type="text" class="form-control userInput" id="parentsInput" placeholder="Martin & Katie">
       </div>
   
       <div class="mb-3">
         <label for="childrenInput" class="form-label">Children</label>
-        <textarea class="form-control" id="childrenInput" rows="6" placeholder="Hans&#10;Elizabeth&#10;Magdalene&#10;Martin&#10;Paul&#10;Margaret"></textarea>
+        <textarea class="form-control userInput" id="childrenInput" rows="6" placeholder="Hans&#10;Elizabeth&#10;Magdalene&#10;Martin&#10;Paul&#10;Margaret"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary" onclick="downloadMemberPhoto()">Download</button>
+      <button type="submit" class="btn btn-success" id="downloadButton" disabled="true" onclick="downloadMemberPhoto()">Download</button>
       
     </div>
     <div class="col-md-6">
@@ -78,46 +78,22 @@
     </div>
     <div class="col-md-3">
       <fieldset class="form-group">
-        <legend>Adjustments</legend>
-        
-        <div class="d-flex align-items-baseline justify-content-between">
+        <legend class="d-flex align-items-baseline justify-content-between">
+          Adjustments
           <div>
-            <label for="brightnessSlider" class="form-label">Brightness:</label>
-            <label id="brightnessValue">100%</label>
+            <button type="button" class="btn btn-secondary pe-0 adjustmentIconButtons" id="previewChanges" style="visibility: hidden;"><i class="fas fa-eye"></i></button>
+            <button type="button" class="btn btn-secondary pe-0 adjustmentIconButtons" id="resetAdjustments" style="visibility: hidden;"><i class="fas fa-rotate-left"></i></button>
           </div>
-          <button type="button" class="btn btn-secondary pe-0" id="resetBrightness"><i class="fas fa-rotate-left"></i></button>
-        </div>
-        <input type="range" class="form-range adjustmentSlider" id="brightnessSlider" min="0" max="200" step="1" value="100">
-        
-        <div class="d-flex align-items-baseline justify-content-between">
-          <div>
-            <label for="contrastSlider" class="form-label">Contrast:</label>
-            <label id="contrastValue">100%</label>
-          </div>
-          <button type="button" class="btn btn-secondary pe-0" id="resetContrast"><i class="fas fa-rotate-left"></i></button>
-        </div>
+        </legend>
+        <label for="brightnessSlider" class="form-label">Brightness</label>
+        <input type="range" class="form-range adjustmentSlider" id="brightnessSlider" min="50" max="150" step="1" value="100">
+        <label for="contrastSlider" class="form-label">Contrast</label>
         <input type="range" class="form-range adjustmentSlider" id="contrastSlider" min="75" max="125" step="1" value="100">
-        
-        <div class="d-flex align-items-baseline justify-content-between">
-          <div>
-            <label for="saturateSlider" class="form-label">Saturation:</label>
-            <label id="saturateValue">100%</label>
-          </div>
-          <button type="button" class="btn btn-secondary pe-0" id="resetSaturation"><i class="fas fa-rotate-left"></i></button>
-        </div>
+        <label for="saturateSlider" class="form-label">Saturation</label>
         <input type="range" class="form-range adjustmentSlider" id="saturateSlider" min="75" max="125" step="1" value="100">
-        
-        <div class="d-flex align-items-baseline justify-content-between">
-          <div>
-            <label for="hueRotateSlider" class="form-label">Color Shift:</label>
-            <label id="hueRotateValue">0%</label>
-          </div>
-          <button type="button" class="btn btn-secondary pe-0" id="resetHueRotate"><i class="fas fa-rotate-left"></i></button>
-        </div>
-        <input type="range" class="form-range adjustmentSlider" id="hueRotateSlider" min="-25" max="25" step="1" value="0">        
+        <label for="hueRotateSlider" class="form-label">Color Shift</label>
+        <input type="range" class="form-range adjustmentSlider" id="hueRotateSlider" min="-25" max="25" step="1" value="0">
       </fieldset>
-
-      <button type="button" class="btn btn-outline-secondary mt-3" id="resetAdjustments">Reset</button>
     </div>
   </div>
 </div>
@@ -140,6 +116,18 @@ $(document).ready(function() {
   $('#childrenInput').on('input', function() {
     var children = $(this).val().split('\n').join('<br>');
     $('.children').html(children);
+  });
+
+  $('.userInput').on('input', function() {
+    var familyName = $('#familyNameInput').val().trim();
+    var parents = $('#parentsInput').val().trim();
+    var children = $('#childrenInput').val().trim();
+
+    if (familyName !== '' && parents !== '' && children !== '') {
+      $('#downloadButton').prop("disabled", false);
+    } else {
+      $('#downloadButton').prop("disabled", true);
+    }
   });
 
   $('#imageUpload').on('change', function() {
@@ -167,19 +155,25 @@ $(document).ready(function() {
   var saturateValue = 100
   var hueRotateValue = 0
 
-  $('.adjustmentSlider').on('input', function() {
-    // get slider values
+  function updateAllAdjustments() {
     brightnessValue = $('#brightnessSlider').val();
     contrastValue = $('#contrastSlider').val();
     saturateValue = $('#saturateSlider').val();
     hueRotateValue = $('#hueRotateSlider').val();
-    // set css filters from values
     $('.cropper-canvas img').css('filter', 'brightness('+brightnessValue+'%) contrast('+contrastValue+'%) saturate('+saturateValue+'%) hue-rotate('+hueRotateValue+'deg)')
-    // show updated values
-    $('#brightnessValue').text(brightnessValue + '%');
-    $('#contrastValue').text(contrastValue + '%');
-    $('#saturateValue').text(saturateValue + '%');
-    $('#hueRotateValue').text(hueRotateValue + '%');
+  }
+
+  $('#previewChanges').on('mousedown', function() {
+    $('.cropper-canvas img').css('filter', '')    
+  });
+
+  $('#previewChanges').on('mouseup', function() {
+    $('.cropper-canvas img').css('filter', 'brightness('+brightnessValue+'%) contrast('+contrastValue+'%) saturate('+saturateValue+'%) hue-rotate('+hueRotateValue+'deg)')    
+  });
+
+  $('.adjustmentSlider').on('input', function() {
+    updateAllAdjustments()
+    updateResetButtonVisibility()
   });
 
   $('#resetAdjustments').click(function() {
@@ -190,49 +184,24 @@ $(document).ready(function() {
   $('.adjustmentSlider').on('dblclick', function() {
     var startingValue = $(this).attr('value');
     $(this).val(startingValue);
+    updateAllAdjustments()
+    updateResetButtonVisibility()
   });
 
-
-  $('#resetBrightness').click(function() {
-    resetBrightness()
-  })
-
-  $('#resetContrast').click(function() {
-    resetContrast();
-  });
-
-  $('#resetSaturation').click(function() {
-    resetSaturation();
-  });
-
-  $('#resetHueRotate').click(function() {
-    resetHueRotate();
-  });
-
-
-  function resetBrightness() {
-    $('#brightnessSlider').val('100').trigger('input');
-  }
-
-  function resetContrast() {
-    $('#contrastSlider').val('100').trigger('input');
-  }
-
-  function resetSaturation() {
-    $('#saturateSlider').val('100').trigger('input');
-  }
-
-  function resetHueRotate() {
-    $('#hueRotateSlider').val('0').trigger('input');
+  function updateResetButtonVisibility() {
+    if (brightnessValue == 100 && contrastValue == 100 && saturateValue == 100 && hueRotateValue == 0) {
+      $('.adjustmentIconButtons').css('visibility', 'hidden');
+    } else {
+      $('.adjustmentIconButtons').css('visibility', 'visible');
+    }
   }
 
   function resetAdjustments() {
-    resetBrightness();
-    resetContrast();
-    resetSaturation();
-    resetHueRotate();
+    $('#brightnessSlider').val('100').trigger('input');
+    $('#contrastSlider').val('100').trigger('input');
+    $('#saturateSlider').val('100').trigger('input');
+    $('#hueRotateSlider').val('0').trigger('input');
   }
-
 });
 
 function downloadMemberPhoto() {
