@@ -4,9 +4,9 @@
 }
 
 body {
-  color: #333333;
+  /* color: #333333;
   background-color: #E6EFF4;
-  font-family: sans-serif;
+  font-family: sans-serif; */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -14,27 +14,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', serif;
 }
 
-ul {
-  margin: 0;
-}
-
 body {
-  background-color: #f8f9fa;
-}
-
-.btn,
-.btn:focus {
-  color: black;
-  background-color: white;
-  border-color: black !important;
-  display: inline-block;
-  border-radius: 0;
-  padding-left: 30px;
-  padding-right: 30px;
-  transition: background-color 0.2s;
-}
-.btn:hover,
-.btn:active {
-  color: white;
-  background-color: black !important;
+  /* background-color: #f8f9fa; */
 }
