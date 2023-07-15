@@ -1,5 +1,5 @@
 # Church Photo Board Maker
-Simple web interface for making printable member photos by entering names and uploading a photo.
+Simple web interface for making printable member photos for a photo board by entering names and uploading a photo.
 
 ## Built with:
 * Alpine.js https://alpinejs.dev/
