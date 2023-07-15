@@ -10,4 +10,10 @@ Simple web interface for making printable member photos for a photo board by ent
 
 ## Running locally:
 
+    npm install
     npm run dev
+
+## Deploy to surge:
+
+    npm start
+    surge
