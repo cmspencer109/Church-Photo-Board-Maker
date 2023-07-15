@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<sergey-import src="head" />
+
+<body>
+  <sergey-import src="navbar" />
+
+  <main role="main" x-data="{ 
+    role: 'member', 
+    familyName: '',
+    parentsNames: '',
+    childrensNames: '',
+    leaderName: '',
+    leaderRole: '',
+    leaderTitle: '',
+    isImageLoaded: false,
+    guidesOn: false,
+    defaultBrightnessValue: 100,
+    defaultContrastValue: 100,
+    defaultSaturateValue: 100,
+    defaultHueRotateValue: 0,
+    brightnessValue: 100,
+    contrastValue: 100,
+    saturateValue: 100,
+    hueRotateValue: 0,
+  }">
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-md-3">
+          <sergey-import src="info-panel" />
+        </div>
+        <div class="col-md-6">
+          <sergey-import src="photo-panel" />
+        </div>
+        <div class="col-md-3">
+          <sergey-import src="adjustments-panel" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <sergey-import src="scripts" />
+</body>
+
+</html>

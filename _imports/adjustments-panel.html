@@ -1,0 +1,52 @@
+<template x-if="isImageLoaded">
+    <fieldset class="form-group">
+        <legend class="d-flex align-items-baseline justify-content-between">
+            Adjustments
+            <div class="opacity-50">
+                <!-- <button id="previewChanges" type="button" class="btn btn-secondary pe-0" 
+                    x-bind:style="{ visibility: 
+                        (brightnessValue != defaultBrightnessValue || 
+                        contrastValue != defaultContrastValue ||  
+                        saturateValue != defaultSaturateValue || 
+                        hueRotateValue != defaultHueRotateValue) ? 'visible' : 'hidden' }">
+                    x-on:mousedown="isMouseDown = true" 
+                    x-on:mouseup="isMouseDown = false">
+                    <i class="fas fa-eye"></i></button> -->
+                
+                <button id="resetAdjustments" type="button" class="btn btn-secondary pe-0" 
+                    x-bind:style="{ visibility: 
+                        (brightnessValue != defaultBrightnessValue || 
+                        contrastValue != defaultContrastValue ||  
+                        saturateValue != defaultSaturateValue || 
+                        hueRotateValue != defaultHueRotateValue) ? 'visible' : 'hidden' }"
+                    x-on:click="brightnessValue = defaultBrightnessValue; 
+                                contrastValue = defaultContrastValue; 
+                                saturateValue = defaultSaturateValue;
+                                hueRotateValue = defaultHueRotateValue;
+                                updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)">
+                    <i class="fas fa-rotate-left"></i>
+                </button>
+            </div>
+        </legend>
+
+        <label for="brightnessSlider" class="form-label">Brightness <span x-text="brightnessValue"></span></label>
+        <input type="range" class="form-range" id="brightnessSlider" min="50" max="150" step="1" 
+            x-model="brightnessValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
+            @dblclick="brightnessValue = defaultBrightnessValue">
+        
+        <label for="contrastSlider" class="form-label">Contrast <span x-text="contrastValue"></span></label>
+        <input type="range" class="form-range" id="contrastSlider" min="75" max="125" step="1" 
+            x-model="contrastValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
+            @dblclick="contrastValue = defaultContrastValue">
+        
+        <label for="saturateSlider" class="form-label">Saturation <span x-text="saturateValue"></span></label>
+        <input type="range" class="form-range" id="saturateSlider" min="75" max="125" step="1" 
+            x-model="saturateValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
+            @dblclick="saturateValue = defaultSaturateValue">
+        
+        <label for="hueRotateSlider" class="form-label">Color Shift <span x-text="hueRotateValue"></span></label>
+        <input type="range" class="form-range" id="hueRotateSlider" min="-25" max="25" step="1" 
+            x-model="hueRotateValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
+            @dblclick="hueRotateValue = defaultHueRotateValue">
+    </fieldset>
+</template>

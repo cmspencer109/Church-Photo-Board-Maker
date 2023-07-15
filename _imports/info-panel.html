@@ -1,0 +1,66 @@
+<div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check" name="btnradio" id="member-tab" autocomplete="off" x-model="role" value="member">
+    <label class="btn btn-outline-primary" for="member-tab">Member</label>
+    <input autocomplete="off" type="radio" class="btn-check" name="btnradio" id="leader-tab" autocomplete="off" x-model="role" value="leader">
+    <label class="btn btn-outline-primary" for="leader-tab">Leader</label>
+</div>
+  
+<!-- Member inputs -->
+<template x-if="role === 'member'">
+    <div>
+        <div class="mb-3">
+            <label for="familyNameInput" class="form-label">Family Name</label>
+            <input autocomplete="off" type="text" class="form-control userInput" id="familyNameInput" placeholder="Luther"
+                x-model="familyName">
+        </div>
+    
+        <div class="mb-3">
+            <label for="parentsInput" class="form-label">Parents</label>
+            <input autocomplete="off" type="text" class="form-control userInput" id="parentsInput" placeholder="Martin & Katie"
+                x-model="parentsNames">
+        </div>
+    
+        <div class="mb-3">
+            <label for="childrenInput" class="form-label">Children</label>
+            <textarea autocomplete="off" class="form-control userInput" id="childrenInput" rows="6"
+                placeholder="Hans&#10;Elizabeth&#10;Magdalene&#10;Martin&#10;Paul&#10;Margaret" x-model="childrensNames"></textarea>
+        </div>
+
+        <!-- Download -->
+        <button type="submit" class="btn btn-success" 
+            x-bind:disabled="familyName === '' || parentsNames === ''" 
+            x-on:click="guidesOn = false; downloadMemberPhoto(role === 'member' ? familyName : leaderName)">Download</button>
+    </div>
+</template>
+
+<!-- Leader inputs -->
+<template x-if="role === 'leader'">
+    <div>
+        <div class="mb-3">
+            <label for="leaderNameInput" class="form-label">Full Name</label>
+            <input autocomplete="off" type="text" class="form-control userInput" id="leaderNameInput"
+                placeholder="Martin Luther" x-model="leaderName">
+        </div>
+
+        <div class="mb-3">
+            <label for="leaderRoleInput" class="form-label">Role</label>
+            <input autocomplete="off" type="text" class="form-control userInput" id="leaderRoleInput"
+                placeholder="Enter a role" x-model="leaderRole" list="suggestedRoleOptions">
+            <datalist id="suggestedRoleOptions">
+                <option value="Councilman">
+                <option value="Pastor">
+            </datalist>
+        </div>        
+        
+        <div class="mb-3">
+            <label for="leaderTitleInput" class="form-label">Title</label>
+            <input autocomplete="off" type="text" class="form-control userInput" id="leaderTitleInput"
+                placeholder="Chairman of ..." x-model="leaderTitle">
+        </div>
+
+        <!-- Download -->
+        <button type="submit" class="btn btn-success" 
+            x-bind:disabled="leaderName === '' || leaderRole === ''" 
+            x-on:click="guidesOn = false; downloadMemberPhoto(role === 'member' ? familyName : leaderName)">Download</button>
+    </div>
+</template>

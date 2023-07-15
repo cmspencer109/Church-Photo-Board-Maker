@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "sergey": "^0.0.13"
+  },
+  "scripts": {
+    "start": "sergey",
+    "dev": "sergey --watch"
+  }
+}
