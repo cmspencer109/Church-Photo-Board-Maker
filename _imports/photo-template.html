@@ -10,22 +10,22 @@
             </div>
             <template x-if="role === 'member'">
                 <div class="text-area">
-                    <div class="family-name" x-text="familyName"></div>
+                    <div class="family-name" x-html="familyName.replaceAll('\\n', '<br>')"></div>
                     <div class="text-spacer">&nbsp;</div>
-                    <div class="parents" x-text="parentsNames"></div>
+                    <div class="parents" x-html="parentsNames.replaceAll('\\n', '<br>')"></div>
                     <div class="text-spacer">&nbsp;</div>
                     <div class="children" x-text="childrensNames"></div>
                 </div>
             </template>
             <template x-if="role === 'leader'">
                 <div class="text-area">
-                    <div class="leader-role" x-text="leaderRole"></div>
+                    <div class="leader-role" x-html="leaderRole.replaceAll('\\n', '<br>')"></div>
                     <div class="text-spacer">&nbsp;</div>
-                    <div class="leader-name" x-text="leaderName"></div>
+                    <div class="leader-name" x-html="leaderName.replaceAll('\\n', '<br>')"></div>
                     <div class="text-spacer">&nbsp;</div>
                     <img class="fancy-divider" src="/images/fancy-divider.png" crossorigin="anonymous">
                     <div class="text-spacer">&nbsp;</div>
-                    <div class="leader-title" x-text="leaderTitle"></div>
+                    <div class="leader-title" x-html="leaderTitle.replaceAll('\\n', '<br>')"></div>
                 </div>
             </template>
         </div>
