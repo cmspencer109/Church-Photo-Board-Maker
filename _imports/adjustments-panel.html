@@ -32,21 +32,21 @@
         <label for="brightnessSlider" class="form-label">Brightness <span x-text="brightnessValue"></span></label>
         <input type="range" class="form-range" id="brightnessSlider" min="50" max="150" step="1" 
             x-model="brightnessValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
-            @dblclick="brightnessValue = defaultBrightnessValue">
+            @dblclick="brightnessValue = defaultBrightnessValue; updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)">
         
         <label for="contrastSlider" class="form-label">Contrast <span x-text="contrastValue"></span></label>
         <input type="range" class="form-range" id="contrastSlider" min="75" max="125" step="1" 
             x-model="contrastValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
-            @dblclick="contrastValue = defaultContrastValue">
+            @dblclick="contrastValue = defaultContrastValue; updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)">
         
         <label for="saturateSlider" class="form-label">Saturation <span x-text="saturateValue"></span></label>
         <input type="range" class="form-range" id="saturateSlider" min="75" max="125" step="1" 
             x-model="saturateValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
-            @dblclick="saturateValue = defaultSaturateValue">
+            @dblclick="saturateValue = defaultSaturateValue; updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)">
         
         <label for="hueRotateSlider" class="form-label">Color Shift <span x-text="hueRotateValue"></span></label>
         <input type="range" class="form-range" id="hueRotateSlider" min="-25" max="25" step="1" 
             x-model="hueRotateValue" x-on:input="updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)" 
-            @dblclick="hueRotateValue = defaultHueRotateValue">
+            @dblclick="hueRotateValue = defaultHueRotateValue; updateAdjustments(brightnessValue, contrastValue, saturateValue, hueRotateValue)">
     </fieldset>
 </template>
