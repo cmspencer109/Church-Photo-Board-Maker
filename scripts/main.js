@@ -38,5 +38,9 @@ function downloadMemberPhoto(name) {
       link.download = name.replace(/ /g, '_') + '_' + date + '.jpg';
       link.href = dataUrl;
       link.click();
+    })
+    .catch(function (error) {
+      console.error('Error downloading member photo:', error);
+      alert('Could not download member photo. Try uploading a smaller image.')
     });
 }
