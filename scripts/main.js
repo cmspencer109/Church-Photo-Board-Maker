@@ -1,33 +1,46 @@
-const imageUpload = document.getElementById('imageUpload');
-imageUpload.addEventListener('change', function() {
-  var file = this.files[0];
-  var reader = new FileReader();
+let cropper;
+
+document.addEventListener('DOMContentLoaded', function() {
+  const image = document.getElementById('image');
+  const imageUpload = document.getElementById('imageUpload');
   
-  reader.onload = function(event) {
-    cropper.replace(event.target.result);
-  };
+  if (image && typeof Cropper !== 'undefined') {
+    cropper = new Cropper(image, {
+      viewMode: 3,
+      dragMode: 'move',
+      guide: false,
+      background: false,
+      autoCrop: false,
+      autoCropArea: 1,
+      cropBoxMovable: false,
+      cropBoxResizable: false,
+      guides: false,
+      center: false,
+      highlight: false,
+    });
+  }
 
-  reader.readAsDataURL(file);
-});
+  if (imageUpload) {
+    imageUpload.addEventListener('change', function() {
+      var file = this.files[0];
+      var reader = new FileReader();
+      
+      reader.onload = function(event) {
+        if (cropper) {
+          cropper.replace(event.target.result);
+        }
+      };
 
-const image = document.getElementById('image');
-const cropper = new Cropper(image, {
-  viewMode: 3,
-  dragMode: 'move',
-  guide: false,
-  background: false,
-  autoCrop: false,
-  autoCropArea: 1,
-  cropBoxMovable: false,
-  cropBoxResizable: false,
-  guides: false,
-  center: false,
-  highlight: false,
+      reader.readAsDataURL(file);
+    });
+  }
 });
 
 function updateAdjustments(brightness, contrast, saturate, hueRotate) {
   const imgElement = document.querySelector('.cropper-canvas img');
-  imgElement.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) hue-rotate(${hueRotate}deg)`;
+  if (imgElement) {
+    imgElement.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) hue-rotate(${hueRotate}deg)`;
+  }
 }
 
 function downloadMemberPhoto(name) {
