@@ -21,17 +21,43 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (imageUpload) {
-    imageUpload.addEventListener('change', function() {
+    imageUpload.addEventListener('change', async function() {
       var file = this.files[0];
-      var reader = new FileReader();
+      if (!file) return;
       
-      reader.onload = function(event) {
-        if (cropper) {
-          cropper.replace(event.target.result);
+      try {
+        let processedFile = file;
+        
+        // Check if file is HEIC/HEIF and convert to JPEG
+        if (file.type === 'image/heic' || file.type === 'image/heif' || 
+            file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+          
+          if (typeof heic2any !== 'undefined') {
+            console.log('Converting HEIC/HEIF to JPEG...');
+            processedFile = await heic2any({
+              blob: file,
+              toType: 'image/jpeg',
+              quality: 0.9
+            });
+          } else {
+            alert('HEIC files are not supported. Please use JPEG or PNG files.');
+            return;
+          }
         }
-      };
-
-      reader.readAsDataURL(file);
+        
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          if (cropper) {
+            cropper.replace(event.target.result);
+          }
+        };
+        
+        reader.readAsDataURL(processedFile);
+        
+      } catch (error) {
+        console.error('Error processing image:', error);
+        alert('Error processing image. Please try a different file.');
+      }
     });
   }
 });
