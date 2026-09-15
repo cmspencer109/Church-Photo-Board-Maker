@@ -26,22 +26,26 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install
+        id: install
+        run: pnpm install --frozen-lockfile
 
-      # `!cancelled()` so one failing check doesn't mask the others — a PR
-      # should show every problem in a single run, not one per push.
+      # The checks are independent of each other, so one failing shouldn't mask
+      # the rest — a PR should show every problem in a single run, not one per
+      # push. They do all depend on the install, though: without this guard a
+      # failed install reports the same error four more times.
       - name: Check formatting
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: pnpm run format:check
 
       - name: Lint
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: pnpm run lint
 
       - name: Typecheck
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: pnpm run typecheck
 
       - name: Build
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: pnpm run build
