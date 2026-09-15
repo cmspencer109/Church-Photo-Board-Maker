@@ -197,14 +197,13 @@ function drawPhoto(ctx: CanvasRenderingContext2D, opts: RenderOptions): void {
   }
 
   if (placeholder) {
-    // The original used `background-size: 100%`, centred: full width, auto
-    // height, vertically centred in the frame.
+    // Full frame width, bottom-anchored — see PLACEHOLDER_ASPECT.
     const width = PHOTO_FRAME.width
     const height = width / PLACEHOLDER_ASPECT
     ctx.drawImage(
       placeholder,
       PHOTO_FRAME.x,
-      PHOTO_FRAME.y + (PHOTO_FRAME.height - height) / 2,
+      PHOTO_FRAME.y + PHOTO_FRAME.height - height,
       width,
       height,
     )

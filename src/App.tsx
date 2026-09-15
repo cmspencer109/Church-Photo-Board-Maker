@@ -36,7 +36,7 @@ export default function App() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const placeholder = useStaticImage('/images/people-placeholder.svg')
+  const placeholder = useStaticImage('/images/family-placeholder.webp')
   const divider = useStaticImage('/images/fancy-divider.png')
 
   // Release the previous object URL whenever the photo is replaced or we unmount.

@@ -86,8 +86,16 @@ export const SPACER_HEIGHT = pt(13)
  */
 export const DIVIDER = { width: 52, height: 26, blockHeight: 30.3 }
 
-/** Placeholder art shown until a photo is uploaded. Source viewBox is 347x241. */
-export const PLACEHOLDER_ASPECT = 347 / 241
+/**
+ * Placeholder art shown until a photo is uploaded: a pencil sketch of a family,
+ * 1125x859 (1125 being the photo frame's width at export scale).
+ *
+ * It is drawn at full frame width and anchored to the BOTTOM rather than
+ * centred. The figures in the sketch are cropped at the shins and run right to
+ * the bottom edge, so centring it would float them with a gap underneath;
+ * bottom-anchoring reads like a real standing portrait.
+ */
+export const PLACEHOLDER_ASPECT = 1125 / 859
 
 export const PHOTO_FRAME = {
   x: 0,

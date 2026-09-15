@@ -76,6 +76,11 @@ Two things worth knowing if you ever adjust the layout:
   asymmetric (5px / 15px), nudging the text block left of true centre to
   correct for drift on the printer these are produced on. Retune that pair,
   not the centre point, if you change printers.
+- **The placeholder is bottom-anchored.** `family-placeholder.webp` is a
+  pencil sketch whose figures are cropped at the shins and run to the bottom
+  edge, so it sits on the bottom of the photo frame rather than centred.
+  Swapping in different art means revisiting `PLACEHOLDER_ASPECT` and that
+  choice in `renderCard.ts`.
 - **Fonts must be loaded before drawing.** Canvas has no re-layout: if a
   webfont arrives after `fillText`, the text is silently already wrong.
   `src/lib/fonts.ts` awaits every face the card uses before any render. This is
