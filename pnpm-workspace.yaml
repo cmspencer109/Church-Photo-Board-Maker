@@ -1,7 +1,14 @@
+# Reject dependencies published within the last 24h. Freshly published versions
+# are how a compromised package reaches you before anyone has noticed, and the
+# cost of waiting a day is nil. Set explicitly rather than left to the default,
+# which differs between CI and an interactive shell — that gap let a lockfile
+# pass locally and fail in CI.
+minimumReleaseAge: 1440
+
+# Dependencies allowed to run install scripts. pnpm blocks these by default;
+# both need to fetch a platform-specific native binary:
+#   esbuild - used by Vite's dependency pre-bundling
+#   workerd - Cloudflare's runtime, used by `wrangler dev`
 allowBuilds:
   esbuild: true
   workerd: true
-# Dependencies allowed to run install scripts. pnpm blocks these by default;
-# both of these need to fetch a platform-specific native binary:
-#   esbuild  - used by Vite's dependency pre-bundling
-#   workerd  - Cloudflare's runtime, used by `wrangler dev`

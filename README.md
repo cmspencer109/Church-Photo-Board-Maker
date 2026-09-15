@@ -51,6 +51,19 @@ every pull request and on pushes to `master`. The steps use `if: !cancelled()`
 so one failure doesn't mask the rest — a PR shows every problem in a single
 run rather than one per push. `pnpm check` runs the same set locally.
 
+**Dependencies must be at least 24h old.** `pnpm-workspace.yaml` sets
+`minimumReleaseAge: 1440`, so a version published in the last day is rejected —
+that window is when a compromised package reaches you before anyone has noticed.
+pnpm's resolver honours it, so an ordinary `^` range simply resolves to the
+newest release that is old enough; you rarely notice it.
+
+If CI reports `ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION` but the same install
+passes locally, it's because pnpm caches a per-lockfile verdict in
+`~/Library/Caches/pnpm/lockfile-verified.jsonl` (`~/.cache/pnpm/` on Linux) and
+reuses it — the message says "verified Nm ago". Delete that file to force a real
+check. To fix a genuine violation, `rm pnpm-lock.yaml && pnpm install` and let
+it re-resolve onto settled versions.
+
 **TypeScript is pinned to 6.0.3 on purpose.** typescript-eslint hard-errors on
 TypeScript 7 (it refuses to load, rather than warning), and 6.0.3 is the newest
 release it supports. Revisit once
