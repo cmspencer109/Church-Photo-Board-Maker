@@ -90,12 +90,19 @@ export const DIVIDER = { width: 52, height: 26, blockHeight: 30.3 }
  * Placeholder art shown until a photo is uploaded: a pencil sketch of a family,
  * 1125x859 (1125 being the photo frame's width at export scale).
  *
- * It is drawn at full frame width and anchored to the BOTTOM rather than
- * centred. The figures in the sketch are cropped at the shins and run right to
- * the bottom edge, so centring it would float them with a gap underneath;
- * bottom-anchoring reads like a real standing portrait.
+ * It is anchored to the BOTTOM rather than centred: the figures are cropped at
+ * the shins and run right to the bottom edge, so centring would float them with
+ * a gap underneath, while bottom-anchoring reads like a real standing portrait.
  */
 export const PLACEHOLDER_ASPECT = 1125 / 859
+
+/**
+ * Breathing room either side of the placeholder, in card units, so the outer
+ * figures don't sit flush against the frame edge and the black rule. Because
+ * the aspect is fixed, widening this also shortens the sketch and lowers it in
+ * the frame — 16 keeps the family a comfortable size.
+ */
+export const PLACEHOLDER_INSET_X = 16
 
 export const PHOTO_FRAME = {
   x: 0,

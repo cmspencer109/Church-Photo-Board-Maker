@@ -6,6 +6,7 @@ import {
   EXPORT_SCALE,
   PHOTO_FRAME,
   PLACEHOLDER_ASPECT,
+  PLACEHOLDER_INSET_X,
   SPACER_HEIGHT,
   TEXT_CENTER_X,
   TEXT_CONTENT_WIDTH,
@@ -197,12 +198,12 @@ function drawPhoto(ctx: CanvasRenderingContext2D, opts: RenderOptions): void {
   }
 
   if (placeholder) {
-    // Full frame width, bottom-anchored — see PLACEHOLDER_ASPECT.
-    const width = PHOTO_FRAME.width
+    // Inset either side, bottom-anchored — see PLACEHOLDER_ASPECT.
+    const width = PHOTO_FRAME.width - PLACEHOLDER_INSET_X * 2
     const height = width / PLACEHOLDER_ASPECT
     ctx.drawImage(
       placeholder,
-      PHOTO_FRAME.x,
+      PHOTO_FRAME.x + PLACEHOLDER_INSET_X,
       PHOTO_FRAME.y + PHOTO_FRAME.height - height,
       width,
       height,
