@@ -103,20 +103,12 @@ export const DIVIDER = { width: 52, height: 26, blockHeight: 30.3 }
 
 /**
  * Placeholder art shown until a photo is uploaded: a pencil sketch of a family,
- * 1125x859 (1125 being the photo frame's width at export scale).
- *
- * It is anchored to the BOTTOM rather than centred: the figures are cropped at
- * the shins and run right to the bottom edge, so centring would float them with
- * a gap underneath, while bottom-anchoring reads like a real standing portrait.
+ * 1029x1087, trimmed so that the very top row of ink is the crown of the
+ * father's head. That makes the art self-aligning — see PLACEHOLDER_BOX.
  */
-export const PLACEHOLDER_ASPECT = 1125 / 859
+export const PLACEHOLDER_ASPECT = 1029 / 1087
 
-/**
- * Breathing room either side of the placeholder, in card units, so the outer
- * figures don't sit flush against the frame edge and the black rule. Because
- * the aspect is fixed, widening this also shortens the sketch and lowers it in
- * the frame — 16 keeps the family a comfortable size.
- */
+/** Breathing room either side of the placeholder, in card units. */
 export const PLACEHOLDER_INSET_X = 16
 
 export const PHOTO_FRAME = {
@@ -134,3 +126,28 @@ export const PHOTO_ASPECT = PHOTO_FRAME.width / PHOTO_FRAME.height
  * is where the top of the subject's head should sit.
  */
 export const GUIDE = { heightPct: 25, labelPaddingTopPct: 13 }
+
+/** y of the guide's lower edge — the head line itself. */
+export const GUIDE_Y = (CARD_HEIGHT * GUIDE.heightPct) / 100 // 100
+
+/**
+ * Where the placeholder sketch is drawn.
+ *
+ * Its top edge is the father's head, so putting that edge on the guide line
+ * makes the art demonstrate the alignment it is asking the user for. Width is
+ * the frame less the side inset, and the aspect ratio then fixes the height.
+ *
+ * That height deliberately overruns the bottom of the frame, cropping the
+ * family mid-shin — the alternative was shrinking the sketch until the feet fit,
+ * which left it small and stranded in wide margins. Callers must clip to the
+ * photo frame.
+ */
+export const PLACEHOLDER_BOX = (() => {
+  const width = PHOTO_FRAME.width - PLACEHOLDER_INSET_X * 2
+  return {
+    x: PHOTO_FRAME.x + PLACEHOLDER_INSET_X,
+    y: GUIDE_Y,
+    width,
+    height: width / PLACEHOLDER_ASPECT,
+  }
+})()

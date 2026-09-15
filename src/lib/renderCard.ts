@@ -5,8 +5,7 @@ import {
   DIVIDER,
   EXPORT_SCALE,
   PHOTO_FRAME,
-  PLACEHOLDER_ASPECT,
-  PLACEHOLDER_INSET_X,
+  PLACEHOLDER_BOX,
   SPACER_HEIGHT,
   TEXT_CENTER_X,
   TEXT_CONTENT_WIDTH,
@@ -206,16 +205,25 @@ function drawPhoto(ctx: CanvasRenderingContext2D, opts: RenderOptions): void {
   }
 
   if (placeholder) {
-    // Inset either side, bottom-anchored — see PLACEHOLDER_ASPECT.
-    const width = PHOTO_FRAME.width - PLACEHOLDER_INSET_X * 2
-    const height = width / PLACEHOLDER_ASPECT
+    // Head on the guide line; the sketch runs off the bottom of the frame by
+    // design, so it has to be clipped — see PLACEHOLDER_BOX.
+    ctx.save()
+    ctx.beginPath()
+    ctx.rect(
+      PHOTO_FRAME.x,
+      PHOTO_FRAME.y,
+      PHOTO_FRAME.width,
+      PHOTO_FRAME.height,
+    )
+    ctx.clip()
     ctx.drawImage(
       placeholder,
-      PHOTO_FRAME.x + PLACEHOLDER_INSET_X,
-      PHOTO_FRAME.y + PHOTO_FRAME.height - height,
-      width,
-      height,
+      PLACEHOLDER_BOX.x,
+      PLACEHOLDER_BOX.y,
+      PLACEHOLDER_BOX.width,
+      PLACEHOLDER_BOX.height,
     )
+    ctx.restore()
   }
 }
 
