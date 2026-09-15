@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "church-photo-board-maker",
+  "compatibility_date": "2026-09-15",
+
+  // Pure static site: no Worker script, Cloudflare serves ./dist directly.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+
+  // Custom domain. The zone (mluther.org) must be on this Cloudflare account;
+  // Cloudflare creates/manages the DNS record for this hostname automatically.
+  "routes": [
+    {
+      "pattern": "photoboard.mluther.org",
+      "custom_domain": true
+    }
+  ]
+}

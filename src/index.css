@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens lifted from Bootswatch Lux (the theme the original site used),
+ * so the rewrite keeps the same look without carrying Bootstrap along.
+ */
+@theme {
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Merriweather", ui-serif, Georgia, serif;
+
+  --color-ink: #1a1a1a;
+  --color-body: #55595c;
+  --color-line: #eceeef;
+  --color-success: #4bbf73;
+  --color-success-strong: #3aa861;
+
+  --radius-lux: 0.375rem;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, legend {
+    @apply font-serif text-ink;
+  }
+
+  /* Lux styles range inputs to match its monochrome palette. */
+  input[type="range"] {
+    @apply h-6 w-full cursor-pointer appearance-none bg-transparent;
+    accent-color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lux border
+           px-4 py-2 text-sm font-semibold uppercase tracking-wide
+           transition-colors select-none
+           focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-ink
+           disabled:pointer-events-none disabled:opacity-65;
+  }
+
+  .btn-outline {
+    @apply border-ink/25 bg-white text-ink hover:border-ink hover:bg-ink hover:text-white;
+  }
+
+  .btn-active {
+    @apply border-ink bg-ink text-white;
+  }
+
+  .btn-dark {
+    @apply border-ink bg-ink text-white hover:bg-black;
+  }
+
+  .btn-success {
+    @apply border-success bg-success text-white hover:bg-success-strong;
+  }
+
+  .btn-light {
+    @apply border-line bg-white text-body hover:bg-line hover:text-ink;
+  }
+
+  .field {
+    @apply block w-full rounded-lux border border-line bg-white px-3 py-2
+           text-sm text-ink transition-colors
+           placeholder:text-body/50
+           focus:border-ink focus:outline-none;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+
+  .panel-heading {
+    @apply font-serif text-lg text-ink;
+  }
+}

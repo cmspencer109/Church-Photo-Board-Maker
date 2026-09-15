@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
+# Dependencies allowed to run install scripts. pnpm blocks these by default;
+# both of these need to fetch a platform-specific native binary:
+#   esbuild  - used by Vite's dependency pre-bundling
+#   workerd  - Cloudflare's runtime, used by `wrangler dev`

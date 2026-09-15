@@ -1,9 +1,36 @@
 {
-  "dependencies": {
-    "sergey": "^0.0.13"
-  },
+  "name": "church-photo-board-maker",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "start": "sergey",
-    "dev": "sergey --watch"
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "deploy": "pnpm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@fontsource/merriweather": "^5.3.0",
+    "@fontsource/nunito-sans": "^5.3.0",
+    "heic-to": "^1.5.2",
+    "lucide-react": "^1.46.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-easy-crop": "^6.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
+    "wrangler": "^4.132.0"
+  },
+  "packageManager": "pnpm@12.4.2",
+  "engines": {
+    "node": ">=20"
   }
 }
