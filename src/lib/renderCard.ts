@@ -1,5 +1,7 @@
 import {
   CARD,
+  CONTENT_HEIGHT,
+  CONTENT_TOP,
   DIVIDER,
   EXPORT_SCALE,
   PHOTO_FRAME,
@@ -135,7 +137,7 @@ function drawTextColumn(ctx: CanvasRenderingContext2D, opts: RenderOptions): voi
 
   // The solid rule dividing photo from text.
   ctx.fillStyle = '#000000'
-  ctx.fillRect(TEXT_X, CARD.safeTop, CARD.textBorder, CARD.safeHeight)
+  ctx.fillRect(TEXT_X, CONTENT_TOP, CARD.textBorder, CONTENT_HEIGHT)
 
   let y = TEXT_TOP
 

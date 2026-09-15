@@ -102,7 +102,7 @@ export default function CardPreview({
   return (
     <div ref={wrapperRef} className="w-full max-w-[600px]">
       <div
-        className="relative overflow-hidden bg-white shadow-[0_1px_2px_rgba(0,0,0,0.07),0_2px_4px_rgba(0,0,0,0.07),0_4px_8px_rgba(0,0,0,0.07),0_8px_16px_rgba(0,0,0,0.07),0_16px_32px_rgba(0,0,0,0.07)]"
+        className="relative overflow-hidden bg-white shadow-[0_1px_2px_rgba(0,0,0,0.07),0_2px_4px_rgba(0,0,0,0.07),0_4px_8px_rgba(0,0,0,0.07),0_8px_16px_rgba(0,0,0,0.07),0_16px_32px_rgba(0,0,0,0.07),0_32px_64px_rgba(0,0,0,0.07)]"
         style={{ width, height }}
       >
         <canvas

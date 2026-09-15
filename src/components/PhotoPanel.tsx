@@ -30,7 +30,7 @@ export default function PhotoPanel({
           ref={inputRef}
           id="imageUpload"
           type="file"
-          className="field file:mr-3 file:-my-2 file:-ml-3 file:cursor-pointer file:border-0 file:bg-line file:px-3 file:py-2 file:text-sm file:font-semibold file:text-ink"
+          className="field"
           accept="image/*,.heic,.heif"
           autoComplete="off"
           onChange={(event) => {
@@ -49,7 +49,7 @@ export default function PhotoPanel({
         <div className="inline-flex self-start" role="group" aria-label="Photo controls">
           <button
             type="button"
-            className="btn btn-dark rounded-r-none"
+            className="btn btn-primary"
             onClick={() => onZoom(0.1)}
             aria-label="Zoom in"
           >
@@ -57,7 +57,7 @@ export default function PhotoPanel({
           </button>
           <button
             type="button"
-            className="btn btn-dark -ml-px rounded-none"
+            className="btn btn-primary -ml-px"
             onClick={() => onZoom(-0.1)}
             aria-label="Zoom out"
           >
@@ -65,7 +65,7 @@ export default function PhotoPanel({
           </button>
           <button
             type="button"
-            className="btn btn-dark -ml-px rounded-l-none"
+            className="btn btn-primary -ml-px"
             onClick={onToggleGuides}
             aria-pressed={guidesOn}
           >

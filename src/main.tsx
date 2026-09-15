@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client'
 // Self-hosted so the canvas export never races a font CDN.
 import '@fontsource/nunito-sans/400.css'
 import '@fontsource/nunito-sans/600.css'
-import '@fontsource/nunito-sans/700.css'
 import '@fontsource/merriweather/400.css'
 import '@fontsource/merriweather/900.css'
 

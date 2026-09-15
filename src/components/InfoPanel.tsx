@@ -1,4 +1,3 @@
-import { Download } from 'lucide-react'
 import type { CardData, Role } from '../types'
 
 interface InfoPanelProps {
@@ -34,9 +33,9 @@ export default function InfoPanel({
             aria-pressed={data.role === value}
             onClick={() => onChange('role', value)}
             className={[
-              'btn',
-              data.role === value ? 'btn-active' : 'btn-outline',
-              index === 0 ? 'rounded-r-none' : '-ml-px rounded-l-none',
+              'btn btn-toggle',
+              data.role === value ? 'btn-toggle-on' : 'btn-toggle-off',
+              index > 0 ? '-ml-0.5' : '',
             ].join(' ')}
           >
             {label}
@@ -63,7 +62,7 @@ export default function InfoPanel({
           <div>
             <label className="field-label flex items-baseline justify-between" htmlFor="parents">
               Parents
-              <small className="font-normal text-body/70">\n for new line</small>
+              <small className="field-hint">\n for new line</small>
             </label>
             <input
               id="parents"
@@ -147,7 +146,6 @@ export default function InfoPanel({
         disabled={!canDownload || busy}
         onClick={onDownload}
       >
-        <Download size={16} aria-hidden />
         {busy ? 'Working…' : 'Download'}
       </button>
     </section>

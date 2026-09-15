@@ -81,6 +81,25 @@ Two things worth knowing if you ever adjust the layout:
   `src/lib/fonts.ts` awaits every face the card uses before any render. This is
   why the fonts are self-hosted rather than pulled from a CDN.
 
+## Matching the original design
+
+The Lux look was reproduced by measuring the old build's *computed* styles
+rather than eyeballing screenshots, so a few values look odd but are
+deliberate:
+
+- The grid is `51fr 106fr 51fr`, not `1fr 2fr 1fr`. Bootstrap's `col-md-3/6/3`
+  sit on a row that overhangs the container's padding, so the real content
+  columns are 306/636/306 either side of 24px gutters.
+- Body text is `font-weight: 400`, though Lux declares 200. Lux only ever
+  loaded Nunito Sans 400 and 600, so its 200 had no face to resolve to and
+  always rendered at 400.
+- No `-webkit-font-smoothing: antialiased`. Lux doesn't set it, and it renders
+  noticeably thinner and lighter than the platform default.
+- Buttons carry a 48px minimum height, matching Bootstrap's `inline-block` +
+  24px line-height, which an icon-only flex button would otherwise collapse.
+- The card's content starts 1px below the dashed trim line (y=51, height 349),
+  because that line is a border on a border-box element.
+
 ## Text entry
 
 - Type `\n` in any single-line field to force a line break.

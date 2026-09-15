@@ -119,18 +119,18 @@ export default function App() {
     <>
       <NavBar />
 
-      <main className="mx-auto max-w-7xl px-4 py-8">
+      <main className="mx-auto max-w-[1320px] px-3">
         {error && (
           <div
             role="alert"
-            className="mb-6 rounded-lux border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800"
+            className="mt-6 border-0 bg-red-50 px-6 py-3 text-sm text-red-800"
           >
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,600px)_minmax(0,1fr)]">
-          <div className="lg:order-2 flex flex-col items-center gap-4">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-[51fr_106fr_51fr]">
+          <div className="flex flex-col items-center gap-6 md:order-2">
             <CardPreview
               data={data}
               photo={photo}
@@ -154,7 +154,7 @@ export default function App() {
             />
           </div>
 
-          <div className="lg:order-1">
+          <div className="md:order-1">
             <InfoPanel
               data={data}
               busy={busy}
@@ -163,7 +163,7 @@ export default function App() {
             />
           </div>
 
-          <div className="lg:order-3">
+          <div className="md:order-3">
             {photo && (
               <AdjustmentsPanel
                 adjustments={adjustments}

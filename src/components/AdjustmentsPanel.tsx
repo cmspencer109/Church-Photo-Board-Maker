@@ -29,31 +29,30 @@ export default function AdjustmentsPanel({
   )
 
   return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="mb-2 flex w-full items-center justify-between">
+    <fieldset>
+      <legend className="mb-2 flex w-full items-baseline justify-between">
         <span className="panel-heading">Adjustments</span>
-        {isModified && (
-          <button
-            type="button"
-            className="btn btn-light px-2 py-1 opacity-70 hover:opacity-100"
-            onClick={() => onChange(DEFAULT_ADJUSTMENTS)}
-            aria-label="Reset all adjustments"
-          >
-            <RotateCcw size={14} aria-hidden />
-          </button>
-        )}
+        {/*
+          Kept in the layout and hidden rather than unmounted, as the original
+          did, so revealing it doesn't shift the sliders down.
+        */}
+        <button
+          type="button"
+          className="btn btn-secondary pr-0 opacity-50"
+          style={{ visibility: isModified ? 'visible' : 'hidden' }}
+          onClick={() => onChange(DEFAULT_ADJUSTMENTS)}
+          aria-label="Reset all adjustments"
+          aria-hidden={!isModified}
+          tabIndex={isModified ? undefined : -1}
+        >
+          <RotateCcw size={16} aria-hidden />
+        </button>
       </legend>
 
       {SLIDERS.map(({ key, label, min, max }) => (
         <div key={key}>
-          <label
-            className="field-label flex items-baseline justify-between"
-            htmlFor={`${key}Slider`}
-          >
-            {label}
-            <span className="font-normal tabular-nums text-body">
-              {adjustments[key]}
-            </span>
+          <label className="field-label" htmlFor={`${key}Slider`}>
+            {label} <span className="tabular-nums">{adjustments[key]}</span>
           </label>
           <input
             id={`${key}Slider`}

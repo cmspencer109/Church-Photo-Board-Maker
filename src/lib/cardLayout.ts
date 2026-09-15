@@ -36,6 +36,14 @@ export const CARD = {
   trimLine: { width: 1, dash: [4, 3], color: '#999999' },
 } as const
 
+/**
+ * The trim line is a 1px top border on the safe area, and the safe area is
+ * border-box, so the card's content actually begins 1px below it and is 1px
+ * shorter. Measured off the original: content top 51, height 349.
+ */
+export const CONTENT_TOP = CARD.safeTop + CARD.trimLine.width // 51
+export const CONTENT_HEIGHT = CARD.safeHeight - CARD.trimLine.width // 349
+
 /** x of the text column's left edge. */
 export const TEXT_X = CARD.photoWidth
 /** Inner width available to text, after the rule and both paddings. */
@@ -45,7 +53,7 @@ export const TEXT_CONTENT_WIDTH =
 export const TEXT_CENTER_X =
   TEXT_X + CARD.textBorder + CARD.textPadLeft + TEXT_CONTENT_WIDTH / 2 // 483.5
 /** y where the first line of text begins. */
-export const TEXT_TOP = CARD.safeTop + CARD.textPadTop // 103
+export const TEXT_TOP = CONTENT_TOP + CARD.textPadTop // 104
 
 export interface TextStyle {
   size: number
@@ -83,9 +91,9 @@ export const PLACEHOLDER_ASPECT = 347 / 241
 
 export const PHOTO_FRAME = {
   x: 0,
-  y: CARD.safeTop,
+  y: CONTENT_TOP,
   width: CARD.photoWidth,
-  height: CARD.safeHeight,
+  height: CONTENT_HEIGHT,
 }
 
 /** Aspect ratio the cropper must honour so the crop fills the photo frame. */
