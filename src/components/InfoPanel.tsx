@@ -60,7 +60,10 @@ export default function InfoPanel({
           </div>
 
           <div>
-            <label className="field-label flex items-baseline justify-between" htmlFor="parents">
+            <label
+              className="field-label flex items-baseline justify-between"
+              htmlFor="parents"
+            >
               Parents
               <small className="field-hint">\n for new line</small>
             </label>
@@ -85,7 +88,9 @@ export default function InfoPanel({
               rows={6}
               placeholder={'Hans\nElizabeth\nMagdalene\nMartin\nPaul\nMargaret'}
               value={data.childrensNames}
-              onChange={(event) => onChange('childrensNames', event.target.value)}
+              onChange={(event) =>
+                onChange('childrensNames', event.target.value)
+              }
             />
           </div>
         </>

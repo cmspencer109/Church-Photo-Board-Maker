@@ -25,9 +25,16 @@ async function decodeBlob(blob: Blob): Promise<LoadedPhoto> {
 
 /** ISO-BMFF brands that indicate a HEIC/HEIF still image. */
 const HEIC_BRANDS = new Set([
-  'heic', 'heix', 'hevc', 'hevx',
-  'heim', 'heis', 'hevm', 'hevs',
-  'mif1', 'msf1',
+  'heic',
+  'heix',
+  'hevc',
+  'hevx',
+  'heim',
+  'heis',
+  'hevm',
+  'hevs',
+  'mif1',
+  'msf1',
 ])
 
 /**
@@ -65,7 +72,9 @@ export async function loadPhoto(file: File): Promise<LoadedPhoto> {
     return await decodeBlob(file)
   } catch (cause) {
     if (!maybeHeic) {
-      throw new Error('That file could not be read as an image.')
+      // Keep the underlying decode failure attached; the message above is for
+      // the user, the cause is what you need when one of these gets reported.
+      throw new Error('That file could not be read as an image.', { cause })
     }
 
     const { heicTo } = await import('heic-to')
@@ -93,6 +102,10 @@ export function downloadBlob(blob: Blob, filename: string): void {
 /** `Luther_2026-09-15.jpg` — same convention as the original app. */
 export function cardFilename(name: string): string {
   const date = new Date().toISOString().split('T')[0]
-  const safe = name.trim().replace(/\s+/g, '_').replace(/[^\w-]/g, '') || 'photo'
+  const safe =
+    name
+      .trim()
+      .replace(/\s+/g, '_')
+      .replace(/[^\w-]/g, '') || 'photo'
   return `${safe}_${date}.jpg`
 }

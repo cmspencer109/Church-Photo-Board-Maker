@@ -9,7 +9,12 @@ import CardPreview from './components/CardPreview'
 import { useStaticImage } from './components/useStaticImage'
 
 import { ensureCardFontsReady } from './lib/fonts'
-import { cardFilename, downloadBlob, loadPhoto, type LoadedPhoto } from './lib/loadImage'
+import {
+  cardFilename,
+  downloadBlob,
+  loadPhoto,
+  type LoadedPhoto,
+} from './lib/loadImage'
 import { renderCardToBlob } from './lib/renderCard'
 import {
   DEFAULT_ADJUSTMENTS,
@@ -24,7 +29,8 @@ const CENTERED: Point = { x: 0, y: 0 }
 
 export default function App() {
   const [data, setData] = useState<CardData>(EMPTY_CARD)
-  const [adjustments, setAdjustments] = useState<Adjustments>(DEFAULT_ADJUSTMENTS)
+  const [adjustments, setAdjustments] =
+    useState<Adjustments>(DEFAULT_ADJUSTMENTS)
   const [guidesOn, setGuidesOn] = useState(false)
 
   const [photo, setPhoto] = useState<LoadedPhoto | null>(null)
@@ -84,7 +90,10 @@ export default function App() {
 
   const handleZoom = useCallback((delta: number) => {
     setZoom((current) =>
-      Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, Number((current + delta).toFixed(2)))),
+      Math.min(
+        MAX_ZOOM,
+        Math.max(MIN_ZOOM, Number((current + delta).toFixed(2))),
+      ),
     )
   }, [])
 

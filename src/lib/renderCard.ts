@@ -133,7 +133,10 @@ function drawBlock(
   return cursor
 }
 
-function drawTextColumn(ctx: CanvasRenderingContext2D, opts: RenderOptions): void {
+function drawTextColumn(
+  ctx: CanvasRenderingContext2D,
+  opts: RenderOptions,
+): void {
   const { data, divider } = opts
 
   // The solid rule dividing photo from text.
@@ -179,7 +182,12 @@ function drawPhoto(ctx: CanvasRenderingContext2D, opts: RenderOptions): void {
   if (photo) {
     ctx.save()
     ctx.beginPath()
-    ctx.rect(PHOTO_FRAME.x, PHOTO_FRAME.y, PHOTO_FRAME.width, PHOTO_FRAME.height)
+    ctx.rect(
+      PHOTO_FRAME.x,
+      PHOTO_FRAME.y,
+      PHOTO_FRAME.width,
+      PHOTO_FRAME.height,
+    )
     ctx.clip()
     ctx.filter = filterString(photo.adjustments)
     ctx.drawImage(
@@ -253,7 +261,8 @@ export function renderCardToBlob(
   canvas.height = CARD.height * EXPORT_SCALE
 
   const ctx = canvas.getContext('2d')
-  if (!ctx) throw new Error('Could not create a drawing context for the export.')
+  if (!ctx)
+    throw new Error('Could not create a drawing context for the export.')
 
   renderCard(ctx, { ...opts, scale: EXPORT_SCALE })
 

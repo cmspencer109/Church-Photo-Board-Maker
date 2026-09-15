@@ -40,13 +40,15 @@ export default function PhotoPanel({
             event.target.value = ''
           }}
         />
-        {loading && (
-          <p className="mt-2 text-sm text-body">Converting image…</p>
-        )}
+        {loading && <p className="mt-2 text-sm text-body">Converting image…</p>}
       </div>
 
       {hasPhoto && (
-        <div className="inline-flex self-start" role="group" aria-label="Photo controls">
+        <div
+          className="inline-flex self-start"
+          role="group"
+          aria-label="Photo controls"
+        >
           <button
             type="button"
             className="btn btn-primary"

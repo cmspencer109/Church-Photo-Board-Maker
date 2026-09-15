@@ -65,11 +65,26 @@ export interface TextStyle {
 }
 
 export const TEXT_STYLES = {
-  familyName: { size: pt(18), lineHeight: pt(23.4), weight: 900, uppercase: true },
+  familyName: {
+    size: pt(18),
+    lineHeight: pt(23.4),
+    weight: 900,
+    uppercase: true,
+  },
   parents: { size: pt(18), lineHeight: pt(23.4), weight: 400 },
-  children: { size: pt(15), lineHeight: pt(19.5), weight: 400, preserveBlankLines: true },
+  children: {
+    size: pt(15),
+    lineHeight: pt(19.5),
+    weight: 400,
+    preserveBlankLines: true,
+  },
   // The original left line-height unset here, inheriting Bootstrap's 1.5.
-  leaderRole: { size: pt(12), lineHeight: pt(12) * 1.5, weight: 900, uppercase: true },
+  leaderRole: {
+    size: pt(12),
+    lineHeight: pt(12) * 1.5,
+    weight: 900,
+    uppercase: true,
+  },
   leaderName: { size: pt(18), lineHeight: pt(23.4), weight: 400 },
   leaderTitle: { size: pt(15), lineHeight: pt(19.5), weight: 400 },
 } as const satisfies Record<string, TextStyle>

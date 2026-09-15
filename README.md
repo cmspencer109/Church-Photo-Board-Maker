@@ -8,17 +8,17 @@ Live at **https://photoboard.mluther.org**
 
 ## Stack
 
-| Concern | Choice |
-| --- | --- |
-| Build | [Vite](https://vite.dev) 8 + TypeScript |
-| UI | React 19 |
-| Styling | Tailwind CSS 4, themed to match [Bootswatch Lux](https://bootswatch.com/lux/) |
-| Photo framing | [react-easy-crop](https://github.com/ValentinH/react-easy-crop) |
-| HEIC support | [heic-to](https://github.com/hoppergee/heic-to), lazily loaded |
-| Icons | [lucide-react](https://lucide.dev) |
-| Fonts | Merriweather + Nunito Sans, self-hosted via Fontsource |
-| Hosting | Cloudflare Workers (static assets) |
-| Packages | pnpm |
+| Concern       | Choice                                                                        |
+| ------------- | ----------------------------------------------------------------------------- |
+| Build         | [Vite](https://vite.dev) 8 + TypeScript                                       |
+| UI            | React 19                                                                      |
+| Styling       | Tailwind CSS 4, themed to match [Bootswatch Lux](https://bootswatch.com/lux/) |
+| Photo framing | [react-easy-crop](https://github.com/ValentinH/react-easy-crop)               |
+| HEIC support  | [heic-to](https://github.com/hoppergee/heic-to), lazily loaded                |
+| Icons         | [lucide-react](https://lucide.dev)                                            |
+| Fonts         | Merriweather + Nunito Sans, self-hosted via Fontsource                        |
+| Hosting       | Cloudflare Workers (static assets)                                            |
+| Packages      | pnpm                                                                          |
 
 ## Running locally
 
@@ -34,10 +34,31 @@ right release. The first install asks you to approve native build scripts for
 Other scripts:
 
 ```bash
-pnpm build      # typecheck, then build to dist/
-pnpm preview    # serve the production build locally
-pnpm typecheck  # types only
+pnpm check         # everything CI runs, in one go
+pnpm build         # typecheck, then build to dist/
+pnpm preview       # serve the production build locally
+pnpm typecheck     # types only
+pnpm lint          # eslint
+pnpm lint:fix      # eslint, fixing what it can
+pnpm format        # prettier, writing changes
+pnpm format:check  # prettier, check only (what CI runs)
 ```
+
+## CI
+
+`.github/workflows/ci.yml` runs format check, lint, typecheck and build on
+every pull request and on pushes to `master`. The steps use `if: !cancelled()`
+so one failure doesn't mask the rest — a PR shows every problem in a single
+run rather than one per push. `pnpm check` runs the same set locally.
+
+**TypeScript is pinned to 6.0.3 on purpose.** typescript-eslint hard-errors on
+TypeScript 7 (it refuses to load, rather than warning), and 6.0.3 is the newest
+release it supports. Revisit once
+[typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940)
+lands; until then, upgrading TypeScript will break linting.
+
+Linting is type-aware (`recommendedTypeChecked`), so rules like
+`no-floating-promises` can see across the async upload/render/download paths.
 
 ## Deploying
 
@@ -65,7 +86,7 @@ the DOM. Everything flows from one place:
   design space. The export is the same numbers at 3×, giving exactly 1800×1200.
 - `src/lib/renderCard.ts` — draws a card at any scale from that spec.
 
-The live preview and the downloaded JPEG call the *same* renderer, so the
+The live preview and the downloaded JPEG call the _same_ renderer, so the
 preview cannot drift from what prints. The only part of the preview that isn't
 canvas is the photo itself, which is the interactive cropper layered over the
 photo frame; its crop region feeds straight into the export.
@@ -88,7 +109,7 @@ Two things worth knowing if you ever adjust the layout:
 
 ## Matching the original design
 
-The Lux look was reproduced by measuring the old build's *computed* styles
+The Lux look was reproduced by measuring the old build's _computed_ styles
 rather than eyeballing screenshots, so a few values look odd but are
 deliberate:
 

@@ -6,7 +6,8 @@
  * styles rather than eyeballed, so the rewrite matches it closely.
  */
 @theme {
-  --font-sans: "Nunito Sans", -apple-system, system-ui, "Segoe UI", Roboto,
+  --font-sans:
+    "Nunito Sans", -apple-system, system-ui, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Merriweather", ui-serif, Georgia, serif;
 

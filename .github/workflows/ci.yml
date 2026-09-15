@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+# A new push supersedes an in-flight run for the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Format, lint, typecheck, build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # Reads the pnpm version from package.json's `packageManager` field.
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # `!cancelled()` so one failing check doesn't mask the others — a PR
+      # should show every problem in a single run, not one per push.
+      - name: Check formatting
+        if: ${{ !cancelled() }}
+        run: pnpm run format:check
+
+      - name: Lint
+        if: ${{ !cancelled() }}
+        run: pnpm run lint
+
+      - name: Typecheck
+        if: ${{ !cancelled() }}
+        run: pnpm run typecheck
+
+      - name: Build
+        if: ${{ !cancelled() }}
+        run: pnpm run build
