@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens and component styles ported from Bootswatch Lux, the theme the
+ * original site used. Values here were read off the old build's computed
+ * styles rather than eyeballed, so the rewrite matches it closely.
+ */
+@theme {
+  --font-sans:
+    "Nunito Sans", -apple-system, system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Merriweather", ui-serif, Georgia, serif;
+
+  --color-ink: #1a1a1a;
+  --color-body: #55595c;
+  --color-line: #eceeef;
+  --color-field: #f7f7f9;
+  --color-field-button: #f8f9fa;
+  --color-success: #4bbf73;
+  --color-success-strong: #40a262;
+
+  /* Lux's signature: 1px tracking on everything, 3px on headings. */
+  --tracking-lux: 1px;
+}
+
+@layer base {
+  /*
+   * Lux declares `font-weight: 200` on body, but only ever loads Nunito Sans
+   * 400 and 600 — so the 200 never had a face to resolve to and the original
+   * has always rendered this text at 400. Using 400 directly reproduces what
+   * the old site actually looks like.
+   *
+   * No -webkit-font-smoothing either: Lux doesn't set it, and `antialiased`
+   * renders noticeably thinner and lighter than the platform default.
+   */
+  body {
+    @apply bg-white font-sans text-base font-normal text-body;
+    letter-spacing: var(--tracking-lux);
+  }
+
+  /*
+   * Bootstrap's reboot makes <button> inherit font-family/size but NOT
+   * letter-spacing, so buttons in the original render at normal tracking while
+   * <label>-based buttons inherit the 1px. Preserved deliberately — it is
+   * visible in the old design.
+   */
+  button {
+    letter-spacing: normal;
+  }
+
+  /* Lux range sliders: 8px flat track, 16px solid black thumb. */
+  input[type="range"] {
+    @apply h-6 w-full cursor-pointer appearance-none bg-transparent p-0;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    @apply h-2 rounded-none border-0 bg-field-button;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    @apply -mt-1 h-4 w-4 appearance-none rounded-none border-0 bg-ink;
+  }
+
+  input[type="range"]::-moz-range-track {
+    @apply h-2 rounded-none border-0 bg-field-button;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    @apply h-4 w-4 rounded-none border-0 bg-ink;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2
+           rounded-none border-0 px-6 py-3 text-sm/6 font-semibold uppercase
+           transition-colors select-none
+           focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-ink
+           disabled:pointer-events-none disabled:opacity-65;
+  }
+
+  /* Member / Leader toggle. These are <label>s, so they keep the 1px tracking. */
+  .btn-toggle {
+    @apply border-2 border-ink;
+    letter-spacing: var(--tracking-lux);
+  }
+
+  .btn-toggle-on {
+    @apply bg-ink text-white;
+  }
+
+  .btn-toggle-off {
+    @apply bg-transparent text-ink hover:bg-ink hover:text-white;
+  }
+
+  .btn-primary {
+    @apply bg-ink text-white hover:bg-black;
+  }
+
+  .btn-success {
+    @apply bg-success text-white hover:bg-success-strong;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-black hover:bg-line;
+  }
+
+  .field {
+    @apply block w-full rounded-none border-0 bg-field px-6 py-3 text-base/6
+           font-normal text-body
+           placeholder:text-body/50
+           focus:outline-none focus:ring-4 focus:ring-ink/25;
+    letter-spacing: normal;
+  }
+
+  .field::file-selector-button {
+    @apply -my-3 -ml-6 mr-6 cursor-pointer rounded-none border-0
+           bg-field-button px-6 py-3 text-body;
+  }
+
+  .field-label {
+    @apply mb-2 block text-base/6 text-body;
+  }
+
+  .field-hint {
+    @apply text-sm text-body/75;
+  }
+
+  .panel-heading {
+    @apply text-2xl/9 text-body;
+  }
+}
